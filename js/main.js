@@ -10,9 +10,6 @@ var appendToBody = function(text, tag)
 
 document.addEventListener("DOMContentLoaded", function()
 {
-	appendToBody('hello');
-	setTimeout(function()
-	{
-		appendToBody('Don\'t be a crap', 'h3');
-	}, 2000);
+	setTimeout(function(){appendToBody('hello')}, 2000);
+	setTimeout(function(){appendToBody('Don\'t be a crap', 'h3')}, 4000);
 });
