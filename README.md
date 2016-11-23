@@ -1,2 +1,3 @@
 # CRAP
-CRAP: Really Awesome Playground
+
+CRAP is a recursive acronym for "CRAP: Really Awesome Playground"
