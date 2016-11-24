@@ -2,6 +2,11 @@ body {
 	background:#F5F5F5;
 }
 
+H1 {
+	font-size: 170%;
+	margin-bottom: 10px;
+}
+
 #crap-header {
 	border-top:1px solid #e1e0e0;
 	border-bottom:1px solid #e1e0e0;
@@ -13,9 +18,8 @@ body {
 	margin-top: 30px;
 }
 
-H1 {
-	font-size: 170%;
-	margin-bottom: 10px;
+#crap-header SPAN {
+	color: #4078c0;
 }
 
 .crap-btn-github {
@@ -31,4 +35,13 @@ H1 {
 }
 .crap-btn-github svg {
 	fill: currentColor;
+}
+
+
+#crap-playground {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 125px;
 }
