@@ -1,15 +1,6 @@
 'use strist';
 
-var appendToBody = function(text, tag)
+$(function()
 {
-	tag = tag || 'p';
-	var p = document.createElement(tag);
-	p.innerHTML = text;
-	document.body.appendChild(p);
-};
-
-document.addEventListener("DOMContentLoaded", function()
-{
-	setTimeout(function(){appendToBody('hello')}, 2000);
-	setTimeout(function(){appendToBody('Don\'t be a crap', 'h3')}, 4000);
+	$('.crap-character').animate( {'left':1000}, 5000);
 });
