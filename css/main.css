@@ -1,61 +1,76 @@
 body {
-	background:#F5F5F5;
+	background : #F5F5F5;
 }
 
-H1 {
-	font-size: 170%;
-	margin-bottom: 10px;
+h1 {
+	font-size     : 170%;
+	margin-bottom : 10px;
 }
 
-#crap-header {
-	border-top:1px solid #e1e0e0;
-	border-bottom:1px solid #e1e0e0;
-	padding: 20px 40px 20px 140px;
-	background-image: url("../images/crap-logo.png");
-	background-color: #FAFAFA;
-	background-repeat: no-repeat;
-	background-position: 40px center;
-	margin-top: 30px;
+#header {
+	border-top          : 1px solid #e1e0e0;
+	border-bottom       : 1px solid #e1e0e0;
+	padding             : 20px 40px 20px 140px;
+	background-image    : url("../images/crap-logo.png");
+	background-color    : #FAFAFA;
+	background-repeat   : no-repeat;
+	background-position : 40px center;
+	margin-top          : 30px;
 }
 
-#crap-header SPAN {
-	color: #4078c0;
+#header span {
+	color : #4078c0;
 }
 
-.crap-btn-github {
-	float:right;
-	display:block;
-	width:28px;
-	height:28px;
-	color:#000;
-	margin-top: 12px;
+.btn-github {
+	float      : right;
+	display    : block;
+	width      : 28px;
+	height     : 28px;
+	color      : #000;
+	margin-top : 12px;
 }
-.crap-btn-github:hover {
-	color: #4078c0;
+.btn-github:hover {
+	color : #4078c0;
 }
-.crap-btn-github svg {
-	fill: currentColor;
-}
-
-
-#crap-playground {
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	top: 125px;
+.btn-github svg {
+	fill : currentColor;
 }
 
 
-.crap-character {
-	width: 32px;
-	height: 48px;
-	background: url('http://orig07.deviantart.net/1b67/f/2016/075/6/f/_req__2p_liechtenstein_xp_sprite_by_angel_of_britannia-d9n8e36.png')  0 -96px;
-	animation: play .8s steps(4) infinite;
-	position:relative;
-	left:0;
+#playground {
+	position : absolute;
+	left     : 0;
+	right    : 0;
+	bottom   : 0;
+	top      : 125px;
+	overflow : hidden;
 }
 
-@keyframes play {
-	100% { background-position: -128px -96px; }
+
+
+
+#character {
+	width      : 32px;
+	height     : 48px;
+	background : url('http://orig07.deviantart.net/1b67/f/2016/075/6/f/_req__2p_liechtenstein_xp_sprite_by_angel_of_britannia-d9n8e36.png')  0 0;
+	
+	position : relative;
+	left     : 0;
+	top      : 0;
+}
+
+.move {
+	animation-name            : ch-move;
+	animation-duration        : .8s;
+	animation-timing-function : steps(4);
+	animation-iteration-count : infinite;
+}
+.move.down  { background-position-y :    0px!important; }
+.move.left  { background-position-y :  -48px!important; }
+.move.right { background-position-y :  -96px!important; }
+.move.up    { background-position-y : -144px!important; }
+
+@keyframes ch-move {
+	100% { background-position-x: -128px; }
 }
