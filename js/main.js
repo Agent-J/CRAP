@@ -1,9 +1,14 @@
 'use strist';
 
+if(!CSS.supports || !CSS.supports('background-position-y', '0'))
+{
+	throw new Error('Old browser');
+}
+
 /*
  * Math.hypot polyfill
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/hypot
-*/
+ */
 Math.hypot = Math.hypot || function()
 {
 	var i, y = 0;
@@ -20,58 +25,41 @@ Math.hypot = Math.hypot || function()
 	return Math.sqrt(y);
 };
 
+/*
+ * Math.hypot polyfill
+ * https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/trunc
+ */
+Math.trunc = Math.trunc || function(x)
+{
+	return x - x % 1;
+}
+
 
 $(function()
 {
 	var playground = $('#playground');
-	var character  = $('#character');
-	
-	$('#playground').click(function(e)
-	{
-		var moveTo = {
-			'top'  : e.pageY - playground.offset().top,
-			'left' : e.pageX - playground.offset().left
-		};
-		
-		moveCharacter(character, moveTo);
+	var character  = new Unit({
+		'speed'  : 4, // ms per pixel
+		'sprite' : {
+			'src'      : 'http://orig07.deviantart.net/1b67/f/2016/075/6/f/_req__2p_liechtenstein_xp_sprite_by_angel_of_britannia-d9n8e36.png',
+			'frames'   : 4,
+			'duration' : 800,
+			'order'    : ['down', 'left', 'right', 'up'] // 'downleft', 'downright', 'upleft', 'upright'
+		}
+		/*,'sprite' : {
+			'src'       : 'http://media.tumblr.com/5927504cea37822c6b0c41fdc1f598b2/tumblr_inline_mgfa0kncp21rb6zcv.png',
+			'frames'    : 9,
+			'duration'  : 800,
+			'order'     : ['upleft', 'up', 'upright', 'right', 'left', 'downleft', 'down', 'downright'],
+			'direction' : 'reverse',//'normal'
+			'default'   : [3, 6] // @todo add default (unactive) bg position
+		}*/
 	});
-	
-	var getCharacterShift = function(character, coords, negative=false)
-	{
-		var k = negative ? -1 : 1;
-		coords.top  -= k * (character.height());
-		coords.left -= k * (character.width() / 2);
-		return coords;
-	};
-	
-	var moveCharacter = function(character, moveTo)
-	{
-		setCharacterDirection();
-		var a = moveTo;
-		var b = getCharacterShift(character, character.position(), true);
-		var g = Math.atan2(a.top-b.top, a.left-b.left);
-		var position;
-		if(g < -2.36 || g > 2.36) position = 'left';
-		else if(g < -0.79 )  position = 'up';
-		else if(g < 0.79 )  position = 'right';
-		else  position = 'down';
-		character.addClass('move');
-		character.addClass(position);
-		
-		
-		
-		
-		
-		
-		moveTo = getCharacterShift(character, moveTo);
-		
-		var curPos   = character.position();
-		var distance = Math.hypot(moveTo.left - curPos.left, moveTo.top - curPos.top);
-		
-		character.animate(moveTo, distance*4, 'linear', function(){character.removeClass('move up down left right')});
-	};
-	
-	var setCharacterDirection = function()
-	{
-	};
+	character.element.appendTo(playground);
+
+	playground.click(function(e)
+	{	
+		character.moveTo(e.pageX - playground.offset().left, e.pageY - playground.offset().top);
+	});
 });
+
