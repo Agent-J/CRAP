@@ -4,7 +4,7 @@ var Unit = function(settings)
 {
 	this.id       = this.createId();
 	this.settings = settings;
-	this.element  = jQuery('<div/>', {
+	this.element  = $('<div/>', {
 		'id'    : 'unit-' + this.id,
 		'class' : 'unit ' + (settings.class || ''),
 	});
@@ -20,6 +20,11 @@ Unit.prototype.createId = (function()
 	var id = 0;
 	return function(){return id++};
 })();
+
+Unit.prototype.onLoad = function(callback)
+{
+	this.element.one('unit.load', callback.bind(this));
+};
 
 Unit.prototype.loadSprite = function(src)
 {
@@ -37,7 +42,7 @@ Unit.prototype.loadSprite = function(src)
 
 Unit.prototype.setSpriteSettings = function(img)
 {
-	if(img instanceof jQuery.Event)
+	if(img instanceof $.Event)
 	{
 		img = arguments[1];
 	}
@@ -68,31 +73,49 @@ Unit.prototype.setSpriteSettings = function(img)
 	return this;
 };
 
-Unit.prototype.moveTo = function(x, y)
+Unit.prototype.moveTo = function(x, y, callback, teleport)
 {
+	this.element.stop(true, false);
+	
 	var curPos   = this.element.position();
 	var distance = Math.hypot(x - curPos.left - this.element.width() / 2, y - curPos.top - this.element.height());
 	
-	if(!distance)
-	{
-		return;
-	}
-	
 	var position = {
-		'top'  : y - this.element.height(),
-		'left' : x - this.element.width() / 2
+		'left' : x - this.element.width() / 2,
+		'top'  : y - this.element.height()
 	};
 	
-	this.element.stop(true, false);
+	if(!distance)
+	{
+		return this;
+	}
+	
+	if(teleport)
+	{
+		this.element.css(position);
+		return this;
+	}
+	
+	this.element.one('unit.aftermove', callback.bind(this));
+	
 	this.element.animate(
 		position, 
 		distance * this.settings.speed, 
 		'linear', 
-		this.setDirection.bind(this)
+		function()
+		{
+			this.setDirection(null);
+			this.element.trigger('unit.aftermove');
+		}.bind(this)
 	);
 	this.setDirection(this.determineDirection(x, y));
 	
 	return this;
+};
+
+Unit.prototype.teleport = function(x, y, callback)
+{
+	return this.moveTo(x, y, callback, true);
 };
 
 Unit.prototype.getDirectionClass = function(dir)
@@ -133,4 +156,37 @@ Unit.prototype.determineDirection = function(x, y)
 	}
 	
 	return directions[idx];
+};
+
+Unit.prototype.appendTo = function(container)
+{
+	this.element.appendTo(container);
+	return this;
+};
+
+Unit.prototype.setSpeech = function(speech)
+{
+	this.speech = speech;
+	return this;
+};
+
+Unit.prototype.say = function(text, autoRemove)
+{
+	if(!this.speech)
+	{
+		alert($('<div>'+text+'</div>').text());
+		return this;
+	}
+
+	autoRemove = autoRemove || 3000;
+	
+	var bubble = this.speech.add(text, this.element, autoRemove);
+	
+	return this;
+};
+
+Unit.prototype.appendTo = function(container)
+{
+	this.element.appendTo(container);
+	return this;
 };
