@@ -50,6 +50,15 @@ h1 {
 
 
 
+.unit {
+	position : relative;
+	left     : 0;
+	top      : 0;
+}
+
+
+
+/*
 #character {
 	width      : 32px;
 	height     : 48px;
@@ -74,3 +83,6 @@ h1 {
 @keyframes ch-move {
 	100% { background-position-x: -128px; }
 }
+
+
+*/
