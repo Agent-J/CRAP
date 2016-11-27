@@ -74,7 +74,6 @@ try
 		character.onLoad(function()
 		{
 			character.teleport(playground.width()/2, playground.height()/2);
-			//setTimeout(function(){character.say('Oh, crap!')}, 1000);
 		});
 		
 		var turn = function(e)
