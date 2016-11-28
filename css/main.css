@@ -45,32 +45,77 @@ h1 {
 	bottom   : 0;
 	top      : 125px;
 	overflow : hidden;
+	cursor   : pointer;
 }
 
 
 
 
-#character {
-	width      : 32px;
-	height     : 48px;
-	background : url('http://orig07.deviantart.net/1b67/f/2016/075/6/f/_req__2p_liechtenstein_xp_sprite_by_angel_of_britannia-d9n8e36.png')  0 0;
-	
+.unit {
 	position : relative;
 	left     : 0;
 	top      : 0;
 }
 
-.move {
-	animation-name            : ch-move;
-	animation-duration        : .8s;
-	animation-timing-function : steps(4);
-	animation-iteration-count : infinite;
-}
-.move.down  { background-position-y :    0px!important; }
-.move.left  { background-position-y :  -48px!important; }
-.move.right { background-position-y :  -96px!important; }
-.move.up    { background-position-y : -144px!important; }
 
-@keyframes ch-move {
-	100% { background-position-x: -128px; }
+
+
+.speech-bubble {
+    top: 183px;
+    left: 799px;
+    position: absolute;
+    z-index: 1;
+    border: 3px solid #c81e2b;
+    display: block;
+    padding: 30px;
+    border-radius: 240px / 140px;
+    font-size: 150%;
+    background: white;
+	font-family: "Comic Sans MS", "Comic Sans", cursive;
+	color: #333;
 }
+.speech-bubble::before {
+	content: "";
+	position: absolute;
+	z-index: 10;
+	width: 20px;
+	height: 20px;
+	border: 3px solid #c81e2b;
+	background: #fff;
+	border-radius: 50%;
+	display: block;
+}
+.speech-bubble::after {
+	content: "";
+	position: absolute;
+	z-index: 10;
+	width: 10px;
+	height: 10px;
+	border: 3px solid #c81e2b;
+	background: #fff;
+	border-radius: 50%;
+	display: block;
+}
+.speech-bubble-bl::before { bottom:  -8px; left:  25px; }
+.speech-bubble-bl::after  { bottom: -16px; left:  8px;  }
+.speech-bubble-tl::before { top:     -8px; left:  25px; }
+.speech-bubble-tl::after  { top:    -16px; left:  8px;  }
+.speech-bubble-br::before { bottom:  -8px; right: 25px; }
+.speech-bubble-br::after  { bottom: -16px; right: 8px;  }
+.speech-bubble-tr::before { top:     -8px; right: 25px; }
+.speech-bubble-tr::after  { top:    -16px; right: 8px;  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
