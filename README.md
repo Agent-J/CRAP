@@ -4,3 +4,5 @@
 CRAP is a recursive acronym for "CRAP: Really Awesome Playground"
 
 [demo](https://agent-j.github.io/CRAP/)
+
+Just a joke to intrest my friend in JS-programming
